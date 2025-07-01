@@ -3,527 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutomateX - AI Consulting</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* Animated background particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.3);
-            animation: float 6s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Header */
-        header {
-            position: relative;
-            z-index: 100;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: #00d4ff;
-            transform: translateY(-2px);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift 3s ease-in-out infinite;
-        }
-
-        @keyframes gradient-shift {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(90deg); }
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #00d4ff, #0099cc);
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #00d4ff;
-            transform: translateY(-3px);
-        }
-
-        /* Services Section */
-        .services {
-            position: relative;
-            padding: 4rem 2rem;
-            z-index: 10;
-        }
-
-        .services h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #00d4ff;
-        }
-
-        .service-card p {
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        /* AI Visual Elements */
-        .ai-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: grid-move 20s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes grid-move {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-nav-toggle {
-                display: block;
-            }
-
-            nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.9);
-                backdrop-filter: blur(10px);
-                padding: 1rem;
-            }
-
-            nav.active {
-                display: flex;
-            }
-
-            header {
-                flex-direction: row;
-            }
-        }
-    </style>
+    <title>Naitik Joshi - AI Consulting - Automate Anything You Can Possibly Imagine</title>
+    <meta name="description" content="Professional AI consulting services by Naitik Joshi to automate your daily operations, digital marketing, data insights, research, and competitor analysis.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="particles"></div>
-    <div class="ai-grid"></div>
-
-    <!-- Header -->
-    <header>
-        <div class="logo">AutomateX</div>
-        <button class="mobile-nav-toggle" onclick="toggleNav()">☰</button>
-        <nav id="nav">
-            <a href="#services">Services</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <a href="#contact" class="cta-button">Get Started</a>
-    </header>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-placeholder">
+                    <img src="logo-png.png" height="72" width="72"/>
+                </div>
+               
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Automate Anything You Can Possibly Imagine</h1>
-            <p>Transform your business with revolutionary AI automation solutions. From daily operations to digital marketing, we make the impossible possible with cutting-edge artificial intelligence.</p>
-            <div class="hero-buttons">
-                <a href="#services" class="btn-primary">Start Your AI Journey →</a>
-                <a href="#about" class="btn-secondary">Explore Services</a>
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Automate Anything</span><br>
+                    You Can Possibly Imagine
+                </h1>
+                <p class="hero-subtitle">
+                    Transform your business with cutting-edge AI solutions. From daily operations to strategic insights, 
+                    I help you harness the power of artificial intelligence to drive unprecedented growth and efficiency.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#services" class="btn btn-secondary">My Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="floating-card card-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>AI Automation</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.8"/>
+                        </svg>
+                        <span>Data Insights</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                            <line x1="9" y1="9" x2="9.01" y2="9"/>
+                            <line x1="15" y1="9" x2="15.01" y2="9"/>
+                        </svg>
+                        <span>Smart Solutions</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services" id="services">
-        <h2>Our AI Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">⚙️</div>
-                <h3>Automate Daily Operations</h3>
-                <p>Streamline your business processes with intelligent automation that learns and adapts. Reduce manual work by up to 80% while increasing accuracy and efficiency.</p>
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My AI Consulting Services</h2>
+                <p class="section-subtitle">
+                    Comprehensive AI solutions tailored to transform every aspect of your business operations
+                </p>
             </div>
-            
-            <div class="service-card">
-                <div class="service-icon">📈</div>
-                <h3>Autonomous Digital Marketing</h3>
-                <p>Deploy AI-powered marketing campaigns that optimize themselves in real-time. From content creation to audience targeting, let AI handle your marketing while you focus on strategy.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">📊</div>
-                <h3>AI-Powered Data Insights</h3>
-                <p>Transform raw data into actionable intelligence with advanced machine learning algorithms. Discover hidden patterns and predict future trends with unprecedented accuracy.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🔍</div>
-                <h3>Automated Research</h3>
-                <p>Accelerate your research capabilities with AI that can process vast amounts of information, synthesize findings, and generate comprehensive reports in minutes, not hours.</p>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-icon">🎯</div>
-                <h3>Competitor Insights</h3>
-                <p>Stay ahead of the competition with AI-driven competitive analysis. Monitor competitor strategies, pricing, and market movements to make informed business decisions.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Automate Daily Operations</h3>
+                    <p class="service-description">
+                        Streamline repetitive tasks, optimize workflows, and eliminate manual processes with intelligent automation solutions.
+                    </p>
+                    <ul class="service-features">
+                        <li>Workflow Automation</li>
+                        <li>Process Optimization</li>
+                        <li>Task Scheduling</li>
+                        <li>Resource Management</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                            <line x1="6" y1="1" x2="6" y2="4"/>
+                            <line x1="10" y1="1" x2="10" y2="4"/>
+                            <line x1="14" y1="1" x2="14" y2="4"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Autonomous Digital Marketing</h3>
+                    <p class="service-description">
+                        Deploy AI-driven marketing campaigns that adapt, optimize, and scale automatically for maximum ROI.
+                    </p>
+                    <ul class="service-features">
+                        <li>Campaign Automation</li>
+                        <li>Content Generation</li>
+                        <li>Audience Targeting</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.8"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">AI-Powered Data Insights</h3>
+                    <p class="service-description">
+                        Transform raw data into actionable intelligence with advanced analytics and predictive modeling.
+                    </p>
+                    <ul class="service-features">
+                        <li>Predictive Analytics</li>
+                        <li>Data Visualization</li>
+                        <li>Pattern Recognition</li>
+                        <li>Real-time Insights</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Automated Research</h3>
+                    <p class="service-description">
+                        Accelerate decision-making with AI that conducts comprehensive research and analysis at scale.
+                    </p>
+                    <ul class="service-features">
+                        <li>Market Research</li>
+                        <li>Trend Analysis</li>
+                        <li>Report Generation</li>
+                        <li>Information Synthesis</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                            <path d="M13 12h3"/>
+                            <path d="M8 12H5"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Competitor's Insight</h3>
+                    <p class="service-description">
+                        Stay ahead with continuous competitor monitoring and strategic intelligence powered by AI.
+                    </p>
+                    <ul class="service-features">
+                        <li>Competitive Analysis</li>
+                        <li>Market Positioning</li>
+                        <li>Pricing Intelligence</li>
+                        <li>Strategic Recommendations</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI Consulting Roadmap</h2>
+                <p class="section-subtitle">Your journey to AI-First transformation, step by step</p>
+            </div>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Use case identefication & AI roadmapping</h4>
+                        <p>Audits and strategic planning to identify the highest-impact AI opportunity</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Training, culture & change management</h4>
+                        <p>Helping teams adapt to new Al tools and workflows through education and support.</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Placements & Team Building</h4>
+                        <p>Building internal Al capabilities and developing long-term Al talent within client organizations.</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Development</h4>
+                        <p>Building systems with the Al tools which enhance values rather than replace</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Ongoing Support & Optimization</h4>
+                        <p>Monitor, maintain, and continuously improve your AI systems for maximum ROI in context of time saving. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Why Choose My AI Consulting?</h2>
+                    <p class="about-description">
+                        I specialize in making artificial intelligence accessible and practical for businesses of small and medium sizes. 
+                        With deep technical knowledge and real-world business experience, I deliver 
+                        solutions that actually work.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Proven Results</h4>
+                                <p>Track record of delivering measurable improvements in efficiency and ROI</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Data security consideration</h4>
+                                <p>Your data is protected with military-grade encryption and compliance standards</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Usage cost consideration</h4>
+                                <p>Round-the-clock technical support and maintenance for all your AI systems</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Solution hosting expertise</h4>
+                                <p>Round-the-clock technical support and maintenance for all your AI systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years of IT experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Years of product and AI automation experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">IT infra </div>
+                        <div class="stat-label">Excessive knowledge about cloud infra and 3rd party services</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support Available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Automate Your Future?</h2>
+                <p class="section-subtitle">
+                    Let's discuss how AI can transform your business. Get in touch for a free consultation.
+                </p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" style="margin:auto;">
+                    <h3>Get In Touch</h3>
+                    <p>Ready to transform your business with AI? I'm here to help you every step of the way.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <h4>Email</h4>
+                                <p>naitik@aiconsulting.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <h4>Phone</h4>
+                                <p>+966 254 7757</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <div class="method-content">
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-placeholder">
+                            <span class="logo-text">NJ</span>
+                        </div>
+                        <span>Naitik Joshi</span>
+                    </div>
+                    <p class="footer-description">
+                        Transforming businesses through intelligent automation and AI-powered solutions.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#services">Daily Operations</a></li>
+                            <li><a href="#services">Digital Marketing</a></li>
+                            <li><a href="#services">Data Insights</a></li>
+                            <li><a href="#services">Research</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About Me</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Naitik Joshi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
     <script>
-        // Create animated particles
-        function createParticles() {
-            const particlesContainer = document.querySelector('.particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Mobile navigation toggle
-        function toggleNav() {
-            const nav = document.getElementById('nav');
-            nav.classList.toggle('active');
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+    // Contact form submission handler
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value
+            };
+            try {
+                const response = await fetch('http://localhost:3001/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                if (response.ok) {
+                    alert('Message sent successfully!');
+                    contactForm.reset();
+                } else {
+                    alert('Failed to send message. Please try again later.');
                 }
-                
-                // Close mobile nav if open
-                const nav = document.getElementById('nav');
-                nav.classList.remove('active');
-            });
-        });
-
-        // Initialize particles when page loads
-        document.addEventListener('DOMContentLoaded', createParticles);
-
-        // Add parallax effect to hero content
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            } catch (err) {
+                alert('Error sending message.');
             }
         });
-
-        // Add intersection observer for service cards animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Initialize service cards animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const serviceCards = document.querySelectorAll('.service-card');
-            serviceCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(50px)';
-                card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-                observer.observe(card);
-            });
-        });
+    }
     </script>
 </body>
 </html>
