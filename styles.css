@@ -14,6 +14,7 @@ body {
     line-height: 1.6;
     color: #1f2937;
     background-color: #ffffff;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Typography */
@@ -46,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .logo-text {
@@ -133,6 +135,7 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     cursor: pointer;
     padding: 8px;
+    z-index: 1001;
 }
 
 .nav-toggle span {
@@ -151,6 +154,7 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     position: relative;
     overflow: hidden;
+    padding-top: 72px; /* Account for fixed nav */
 }
 
 .hero-container {
@@ -161,6 +165,7 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr 1fr;
     gap: 64px;
     align-items: center;
+    width: 100%;
 }
 
 .hero-content {
@@ -199,6 +204,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -248,6 +254,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 12px;
     border: 1px solid #e5e7eb;
     animation: float 6s ease-in-out infinite;
+    min-width: 120px;
 }
 
 .floating-card svg {
@@ -278,11 +285,13 @@ h1, h2, h3, h4, h5, h6 {
     left: 60%;
     animation-delay: 4s;
 }
+
 .card-4 {
     bottom: 80%;
     left: 20%;
     animation-delay: 4s;
 }
+
 .card-5 {
     bottom: 0%;
     left: 60%;
@@ -662,91 +671,78 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Roadmap Section */
 .roadmap {
-  background: #f8fafc;
-  padding: 60px 0;
+    background: #f8fafc;
+    padding: 120px 0;
 }
 
 .roadmap-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  max-width: 800px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .roadmap-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.06);
-  padding: 32px 24px;
-  position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.06);
+    padding: 32px 24px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
 .roadmap-step:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
 }
 
 .roadmap-step:active {
-  transform: scale(0.98);
+    transform: scale(0.98);
 }
 
 .step-number {
-  min-width: 48px;
-  min-height: 48px;
-  background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px 0 rgba(99,102,241,0.15);
-  transition: background 0.3s;
+    min-width: 48px;
+    min-height: 48px;
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.15);
+    transition: background 0.3s;
+    flex-shrink: 0;
 }
 
 .roadmap-step:hover .step-number {
-  background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
 }
 
 .step-content h4 {
-  margin: 0 0 8px 0;
-  font-size: 1.15rem;
-  color: #0f172a;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  transition: color 0.2s;
+    margin: 0 0 8px 0;
+    font-size: 1.15rem;
+    color: #0f172a;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
 }
 
 .roadmap-step:hover .step-content h4 {
-  color: #06b6d4;
+    color: #06b6d4;
 }
 
 .step-content p {
-  margin: 0;
-  color: #64748b;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-@media (max-width: 700px) {
-  .roadmap-steps {
-    gap: 20px;
-  }
-  .roadmap-step {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 20px 12px;
-  }
-  .step-number {
-    margin-bottom: 12px;
-  }
+    margin: 0;
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* Responsive Design */
@@ -758,7 +754,7 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .hero-visual {
-        height: 400px;
+        height: 300px;
     }
     
     .about-content {
@@ -774,10 +770,23 @@ h1, h2, h3, h4, h5, h6 {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 48px;
+        text-align: center;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .nav-container {
+        padding: 0 20px;
+    }
+    
     .nav-menu {
         position: fixed;
         top: 72px;
@@ -804,12 +813,25 @@ h1, h2, h3, h4, h5, h6 {
         display: flex;
     }
     
+    .hero {
+        min-height: 100vh;
+        padding: 100px 0 60px;
+    }
+    
     .hero-title {
         font-size: 2.5rem;
     }
     
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+    
     .section-title {
         font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1.125rem;
     }
     
     .services-grid {
@@ -833,6 +855,46 @@ h1, h2, h3, h4, h5, h6 {
     .floating-cards {
         display: none;
     }
+    
+    .roadmap-steps {
+        gap: 20px;
+    }
+    
+    .roadmap-step {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px 16px;
+    }
+    
+    .step-number {
+        margin-bottom: 12px;
+        align-self: center;
+    }
+    
+    .services,
+    .about,
+    .contact,
+    .roadmap {
+        padding: 80px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 48px;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: left;
+    }
+    
+    .stat-card {
+        padding: 24px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -844,8 +906,17 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0 16px;
     }
     
+    .hero {
+        padding: 90px 0 40px;
+    }
+    
     .hero-title {
         font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
     }
     
     .service-card {
@@ -856,7 +927,80 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 1.75rem;
     }
     
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
     .hero-buttons {
         gap: 12px;
+    }
+    
+    .btn {
+        padding: 14px 24px;
+        font-size: 15px;
+    }
+    
+    .nav-logo {
+        font-size: 18px;
+    }
+    
+    .services,
+    .about,
+    .contact,
+    .roadmap {
+        padding: 60px 0;
+    }
+    
+    .footer {
+        padding: 48px 0 24px;
+    }
+    
+    .about-feature {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .feature-icon {
+        align-self: center;
+    }
+    
+    .contact-method {
+        gap: 12px;
+    }
+    
+    .method-icon {
+        align-self: center;
+    }
+    .hero-visual {
+        height: 0px;
+    }
+}
+
+/* Additional fixes for very small screens */
+@media (max-width: 320px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+
+    .hero-visual {
+        height: 0px;
     }
 }
