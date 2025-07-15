@@ -82,6 +82,37 @@
     </script>
     
     <link rel="stylesheet" href="styles.css">
+    <style>
+      .fixed-assessment-btn {
+        position: fixed !important;
+        top: 50px;
+        right: 32px;
+        z-index: 1000;
+        background: var(--theme-accent, #2A3996);
+        color: var(--theme-on-accent, #fff);
+        font-weight: 600;
+        border-radius: 24px;
+        padding: 0.75em 2em;
+        box-shadow: 0 2px 12px rgba(245,158,66,0.18);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+      .fixed-assessment-btn:hover {
+        background: var(--theme-accent-hover, #e67c1e);
+        box-shadow: 0 4px 16px rgba(245,158,66,0.28);
+        transform: scale(1.04);
+      }
+      @media (max-width: 600px) {
+        .fixed-assessment-btn {
+          top: 12px;
+          right: 12px;
+          padding: 0.5em 1em;
+          font-size: 0.95em;
+        }
+      }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
@@ -122,6 +153,11 @@ document.head.appendChild(o)}initApollo();</script>
         </div>
     </nav>
 
+    <!-- Fixed AI Automation Assessment Button -->
+    <a href="/ai-automation-assessment.html" class="btn btn-fav fixed-assessment-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        AI Automation Assessment
+    </a>
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-container">
@@ -136,6 +172,11 @@ document.head.appendChild(o)}initApollo();</script>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
                     <a href="#services" class="btn btn-secondary">Explore AI Services</a>
+        <!-- Fixed AI Automation Assessment Button -->
+        <a href="/ai-automation-assessment.html" class="btn btn-fav fixed-assessment-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            AI Automation Assessment
+        </a>
                 </div>
             </div>
             <div class="hero-visual">

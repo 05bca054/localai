@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-Minute AI Automation Assessment</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        h1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 12px;
+            border-left: 4px solid #28a745;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #28a745;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .question {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 10px;
+        }
+        .question-text {
+            flex: 1;
+        }
+        .score-input {
+            width: 60px;
+            height: 40px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #667eea;
+            background: #f8f9ff;
+            margin-left: 15px;
+        }
+        .score-input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+        .section-score {
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 8px;
+        }
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .results-section {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #ffc107;
+            margin: 30px 0;
+            display: none;
+        }
+        .total-score {
+            font-size: 2em;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        .score-interpretation {
+            margin: 20px 0;
+        }
+        .priority-high { 
+            color: #dc3545; 
+            font-weight: bold; 
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .priority-medium { 
+            color: #fd7e14; 
+            font-weight: bold; 
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .priority-low { 
+            color: #28a745; 
+            font-weight: bold; 
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .priority-monitor { 
+            color: #6c757d; 
+            font-weight: bold; 
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .action-plan {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #28a745;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        .contact-section h2 {
+            color: white;
+            margin-top: 0;
+        }
+        .rating-guide {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .question { flex-direction: column; align-items: flex-start; }
+            .score-input { margin-left: 0; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>5-Minute AI Automation Assessment</h1>
+            <p class="subtitle">Discover Your Top Automation Opportunities</p>
+        </div>
+
+        <div class="instructions">
+            <strong>Instructions:</strong> Rate each task from 1-5 based on how often your team does it manually:
+            <div class="rating-guide">
+                <strong>1 = Never</strong> | <strong>2 = Rarely</strong> | <strong>3 = Sometimes</strong> | <strong>4 = Often</strong> | <strong>5 = Always</strong>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <div class="section">
+            <h2>Section 1: Data Processing & Management</h2>
+            <p><strong>How often does your team manually:</strong></p>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">1.1</span>
+                    <span class="question-text">Enter data from emails, PDFs, or documents into spreadsheets/systems?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="1" id="q1_1">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">1.2</span>
+                    <span class="question-text">Copy and paste information between different software platforms?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="1" id="q1_2">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">1.3</span>
+                    <span class="question-text">Create reports by gathering data from multiple sources?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="1" id="q1_3">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">1.4</span>
+                    <span class="question-text">Update inventory, pricing, or product information across systems?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="1" id="q1_4">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">1.5</span>
+                    <span class="question-text">Verify and clean data for accuracy?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="1" id="q1_5">
+            </div>
+            
+            <div class="section-score" id="section1Score">Section 1 Score: 0/25</div>
+        </div>
+
+        <div class="section">
+            <h2>Section 2: Customer Communication</h2>
+            <p><strong>How often does your team manually:</strong></p>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">2.1</span>
+                    <span class="question-text">Respond to frequently asked questions via email/chat?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="2" id="q2_1">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">2.2</span>
+                    <span class="question-text">Schedule appointments or meetings?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="2" id="q2_2">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">2.3</span>
+                    <span class="question-text">Send follow-up emails or reminders to customers?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="2" id="q2_3">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">2.4</span>
+                    <span class="question-text">Process customer orders or service requests?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="2" id="q2_4">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">2.5</span>
+                    <span class="question-text">Route customer inquiries to the right department?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="2" id="q2_5">
+            </div>
+            
+            <div class="section-score" id="section2Score">Section 2 Score: 0/25</div>
+        </div>
+
+        <div class="section">
+            <h2>Section 3: Administrative Tasks</h2>
+            <p><strong>How often does your team manually:</strong></p>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">3.1</span>
+                    <span class="question-text">Create invoices, quotes, or proposals?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="3" id="q3_1">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">3.2</span>
+                    <span class="question-text">Track project progress and update stakeholders?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="3" id="q3_2">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">3.3</span>
+                    <span class="question-text">Process expense reports or reimbursements?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="3" id="q3_3">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">3.4</span>
+                    <span class="question-text">Monitor and respond to social media messages?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="3" id="q3_4">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">3.5</span>
+                    <span class="question-text">Backup files or organize digital documents?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="3" id="q3_5">
+            </div>
+            
+            <div class="section-score" id="section3Score">Section 3 Score: 0/25</div>
+        </div>
+
+        <div class="section">
+            <h2>Section 4: Monitoring & Analysis</h2>
+            <p><strong>How often does your team manually:</strong></p>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">4.1</span>
+                    <span class="question-text">Check website traffic, sales, or performance metrics?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="4" id="q4_1">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">4.2</span>
+                    <span class="question-text">Monitor competitors' prices or activities?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="4" id="q4_2">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">4.3</span>
+                    <span class="question-text">Track inventory levels and reorder supplies?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="4" id="q4_3">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">4.4</span>
+                    <span class="question-text">Review and moderate user-generated content?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="4" id="q4_4">
+            </div>
+            
+            <div class="question">
+                <div>
+                    <span class="question-number">4.5</span>
+                    <span class="question-text">Generate financial or operational reports?</span>
+                </div>
+                <input type="number" class="score-input" min="1" max="5" data-section="4" id="q4_5">
+            </div>
+            
+            <div class="section-score" id="section4Score">Section 4 Score: 0/25</div>
+        </div>
+
+        <button class="calculate-btn" onclick="calculateResults()">Calculate My Automation Score</button>
+
+        <div class="results-section" id="resultsSection">
+            <h2>Your Automation Readiness Score</h2>
+            <div class="total-score" id="totalScore">Total Score: 0/100</div>
+            
+            <div class="score-interpretation" id="interpretation">
+                <!-- Results will be displayed here -->
+            </div>
+
+            <div class="action-plan" id="topOpportunities">
+                <h2>Your Top 3 Automation Opportunities</h2>
+                <div id="opportunitiesList">
+                    <!-- Top opportunities will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="action-plan">
+            <h2>Immediate Action Plan</h2>
+            
+            <h3>Week 1-2: Quick Assessment</h3>
+            <ul>
+                <li>✓ Complete this automation assessment</li>
+                <li>□ Identify the top 3 most time-consuming manual tasks</li>
+                <li>□ Calculate current time spent on these tasks (hours per week)</li>
+                <li>□ Research available automation tools for your industry</li>
+            </ul>
+            
+            <h3>Week 3-4: Pilot Testing</h3>
+            <ul>
+                <li>□ Choose ONE simple automation to test (start small)</li>
+                <li>□ Set up basic automation using existing tools</li>
+                <li>□ Measure time savings and error reduction</li>
+            </ul>
+            
+            <h3>Month 2: Scale and Optimize</h3>
+            <ul>
+                <li>□ Expand successful automation to other areas</li>
+                <li>□ Train team on new automated processes</li>
+                <li>□ Document ROI and plan next automation phase</li>
+            </ul>
+        </div>
+
+        <div class="contact-section">
+            <h2>Ready to Accelerate Your Automation Journey?</h2>
+            <p><strong>Get a Free 30-Minute Strategy Session</strong></p>
+            <p>📧 Email: naitik@localai.guru</p>
+            <p>📱 Phone: +91 (966) 254-7757</p>
+            <p>🌐 Website: <a href="https://www.localai.guru/" target="_blank">https://www.localai.guru/</a></p>
+            <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/naitik-joshi-104a7a44/" target="_blank">https://www.linkedin.com/in/naitik-joshi-104a7a44/</a></p>
+            <br>
+            <p><strong>Free consultation available for assessment completers</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function updateSectionScore(section) {
+            const inputs = document.querySelectorAll(`input[data-section="${section}"]`);
+            let total = 0;
+            let filled = 0;
+            
+            inputs.forEach(input => {
+                const value = parseInt(input.value) || 0;
+                if (value > 0) {
+                    total += value;
+                    filled++;
+                }
+            });
+            
+            document.getElementById(`section${section}Score`).textContent = `Section ${section} Score: ${total}/25`;
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const allInputs = document.querySelectorAll('.score-input');
+            let filledInputs = 0;
+            
+            allInputs.forEach(input => {
+                if (input.value && parseInt(input.value) > 0) {
+                    filledInputs++;
+                }
+            });
+            
+            const progress = (filledInputs / allInputs.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function calculateResults() {
+            const sectionScores = [];
+            const sectionNames = [
+                'Data Processing & Management',
+                'Customer Communication', 
+                'Administrative Tasks',
+                'Monitoring & Analysis'
+            ];
+            
+            let totalScore = 0;
+            let allFilled = true;
+            
+            for (let i = 1; i <= 4; i++) {
+                const inputs = document.querySelectorAll(`input[data-section="${i}"]`);
+                let sectionTotal = 0;
+                
+                inputs.forEach(input => {
+                    const value = parseInt(input.value) || 0;
+                    if (value === 0) allFilled = false;
+                    sectionTotal += value;
+                });
+                
+                sectionScores.push({
+                    section: i,
+                    name: sectionNames[i-1],
+                    score: sectionTotal
+                });
+                totalScore += sectionTotal;
+            }
+            
+            if (!allFilled) {
+                alert('Please fill in all fields before calculating your score.');
+                return;
+            }
+            
+            document.getElementById('totalScore').textContent = `Total Score: ${totalScore}/100`;
+            
+            // Show interpretation
+            let interpretation = '';
+            if (totalScore >= 80) {
+                interpretation = `
+                    <div class="priority-high">
+                        <h3>80-100 Points: HIGH PRIORITY 🔴</h3>
+                        <ul>
+                            <li>Your team is spending 60-80% of time on automatable tasks</li>
+                            <li><strong>Potential time savings:</strong> 25-40 hours per week</li>
+                            <li><strong>Recommended action:</strong> Start with highest-impact automations immediately</li>
+                            <li><strong>ROI timeline:</strong> 30-60 days</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (totalScore >= 60) {
+                interpretation = `
+                    <div class="priority-medium">
+                        <h3>60-79 Points: MEDIUM PRIORITY 🟡</h3>
+                        <ul>
+                            <li>Significant automation opportunities exist</li>
+                            <li><strong>Potential time savings:</strong> 15-25 hours per week</li>
+                            <li><strong>Recommended action:</strong> Plan automation strategy for next quarter</li>
+                            <li><strong>ROI timeline:</strong> 2-3 months</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (totalScore >= 40) {
+                interpretation = `
+                    <div class="priority-low">
+                        <h3>40-59 Points: LOW PRIORITY 🟢</h3>
+                        <ul>
+                            <li>Some automation opportunities available</li>
+                            <li><strong>Potential time savings:</strong> 8-15 hours per week</li>
+                            <li><strong>Recommended action:</strong> Focus on quick wins first</li>
+                            <li><strong>ROI timeline:</strong> 3-6 months</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                interpretation = `
+                    <div class="priority-monitor">
+                        <h3>Under 40 Points: MONITOR ⚪</h3>
+                        <ul>
+                            <li>Well-optimized processes or industry-specific limitations</li>
+                            <li><strong>Recommended action:</strong> Reassess in 6 months as AI capabilities expand</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('interpretation').innerHTML = interpretation;
+            
+            // Show top opportunities
+            sectionScores.sort((a, b) => b.score - a.score);
+            const topOpportunities = sectionScores.slice(0, 3);
+            
+            let opportunitiesHTML = '';
+            topOpportunities.forEach((opportunity, index) => {
+                const suggestions = getQuickWins(opportunity.section);
+                opportunitiesHTML += `
+                    <div style="margin-bottom: 20px;">
+                        <h3>${index + 1}. ${opportunity.name} (Score: ${opportunity.score}/25)</h3>
+                        <p><strong>Quick Win Ideas:</strong></p>
+                        <ul>
+                            ${suggestions.map(suggestion => `<li>${suggestion}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('opportunitiesList').innerHTML = opportunitiesHTML;
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function getQuickWins(section) {
+            const suggestions = {
+                1: [
+                    'Implement OCR tools for document data extraction',
+                    'Set up automated data sync between systems',
+                    'Create templates for recurring reports'
+                ],
+                2: [
+                    'Deploy chatbots for FAQ responses',
+                    'Set up automated email sequences',
+                    'Use scheduling automation tools'
+                ],
+                3: [
+                    'Automate invoice generation and sending',
+                    'Set up automated project status updates',
+                    'Implement automated expense report processing'
+                ],
+                4: [
+                    'Set up automated dashboards and alerts',
+                    'Create automated competitor monitoring',
+                    'Implement automated inventory tracking'
+                ]
+            };
+            return suggestions[section] || [];
+        }
+        
+        // Add event listeners for real-time updates
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.score-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const section = this.getAttribute('data-section');
+                    updateSectionScore(section);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
