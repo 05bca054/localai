@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeOps + Spend Optimization for Series A/B Startups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .guarantee-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .cta-primary {
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Pain Points Section */
+        .pain-points {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fa6664;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .pain-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .pain-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pain-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .pain-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+        
+        .pain-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.5;
+        }
+        
+        .benefits-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .benefit-item {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .benefit-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-item h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-item p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Social Proof */
+        .social-proof {
+            padding: 80px 0;
+            background: white;
+            text-align: center;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .metric {
+            padding: 30px;
+        }
+        
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .urgency-text {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content > * {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero-content > *:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .hero-content > *:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .hero-content > *:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Stop Burning Cash on Failed Deployments</h1>
+                <p class="hero-subtitle">I guarantee to cut your deployment failures by 80% and operational costs by 40% in 60 days</p>
+                <div class="guarantee-badge">
+                    💰 Money-Back Guarantee • ⚡ 60-Day Transformation
+                </div>
+                <a href="#contact" class="cta-primary">Get Your Free Cost Audit</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="pain-points">
+        <div class="container">
+            <h2 class="section-title">Is Your Startup Hemorrhaging Money?</h2>
+            <p class="section-subtitle">Every deployment failure costs you customers, revenue, and precious runway. Here's what's really happening:</p>
+            
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">💸</div>
+                    <h3>Cloud Costs Eating Your Runway</h3>
+                    <p>Your cloud spend is growing 40% monthly while productivity stagnates. GPU costs for AI workloads are spiraling out of control, and you're unaware of $50K+ in available startup credits.</p>
+                </div>
+                
+                <div class="pain-card">
+                    <div class="pain-icon">🔥</div>
+                    <h3>Deployment Disasters</h3>
+                    <p>40-60% of your deployments fail, causing 2-hour rollbacks that crush team morale. Each failure potentially loses customers and damages your reputation with investors.</p>
+                </div>
+                
+                <div class="pain-card">
+                    <div class="pain-icon">⏰</div>
+                    <h3>Engineering Time Drain</h3>
+                    <p>Your developers spend 30% of their time on manual deployments, monitoring failures, and firefighting instead of building features that drive revenue.</p>
+                </div>
+                
+                <div class="pain-card">
+                    <div class="pain-icon">📈</div>
+                    <h3>Scaling Nightmares</h3>
+                    <p>As you grow, operational complexity explodes. What worked for 5 engineers breaks with 15. You need enterprise-grade reliability without enterprise complexity.</p>
+                </div>
+                
+                <div class="pain-card">
+                    <div class="pain-icon">🎯</div>
+                    <h3>Investor Pressure</h3>
+                    <p>Series A/B investors demand operational efficiency and unit economics improvement. Your current burn rate and operational chaos won't pass due diligence.</p>
+                </div>
+                
+                <div class="pain-card">
+                    <div class="pain-icon">🚨</div>
+                    <h3>Resource Waste Crisis</h3>
+                    <p>Developers forget expensive GPU instances running overnight. No cost allocation visibility. Your AWS bill has line items you can't explain to your CFO.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <h2 class="section-title">The TimeOps + Spend Optimization Solution</h2>
+                <p class="section-subtitle">I combine DevOps excellence with FinOps expertise to deliver measurable results in 60 days</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-number">80%</div>
+                        <h3>Deployment Failure Reduction</h3>
+                        <p>From 40-60% failure rates to 95%+ success with automated rollbacks, testing, and bulletproof CI/CD pipelines designed for rapid scaling.</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-number">40%</div>
+                        <h3>Operational Cost Reduction</h3>
+                        <p>Slash cloud spend through rightsizing, spot instances, reserved capacity, and securing startup credits worth $50K-200K from major providers.</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-number">3x</div>
+                        <h3>Faster Time-to-Market</h3>
+                        <p>Deploy features in minutes instead of hours. Automated testing and deployment processes that scale with your growth without breaking.</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-number">99.9%</div>
+                        <h3>System Reliability</h3>
+                        <p>Enterprise-grade monitoring, alerting, and disaster recovery without enterprise complexity. Sleep soundly knowing your systems won't fail.</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-number">15min</div>
+                        <h3>Recovery Time</h3>
+                        <p>When things do go wrong, recover in under 15 minutes instead of hours. Automated incident response and rollback procedures.</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-number">$200K+</div>
+                        <h3>Annual Savings</h3>
+                        <p>Combine cloud cost optimization with productivity gains. Most clients save 5-10x their investment in the first year alone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2 class="section-title">Proven Results for Series A/B Startups</h2>
+            <p class="section-subtitle">Real metrics from recent transformations</p>
+            
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-number">$550K</div>
+                    <div class="metric-label"> of credits availed</div>
+                </div>
+                
+                <div class="metric">
+                    <div class="metric-number">95%</div>
+                    <div class="metric-label">Average deployment success rate</div>
+                </div>
+                
+                <div class="metric">
+                    <div class="metric-number">1</div>
+                    <div class="metric-label">Startups transformed</div>
+                </div>
+                
+                <div class="metric">
+                    <div class="metric-number">60</div>
+                    <div class="metric-label">Days to full transformation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Stop Wasting Money on Broken Deployments?</h2>
+            <p>I only work with 3 startups per quarter to ensure exceptional results</p>
+            
+            <div class="urgency-text">
+                <strong>Limited Availability:</strong> I'm currently booking for Q4 2025. Every month you wait costs you $15K-40K in operational waste and lost productivity.
+            </div>
+            
+            <a href="#contact" class="cta-primary">Schedule Your Free Strategy Call</a>
+            
+            <p style="margin-top: 30px; opacity: 0.8; font-size: 0.9rem;">
+                ✅ 30-minute strategy session<br>
+                ✅ Custom cost optimization audit<br>
+                ✅ No-obligation roadmap to 40% savings
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all pain cards and benefit items
+        document.querySelectorAll('.pain-card, .benefit-item, .metric').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
